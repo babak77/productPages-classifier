@@ -4,15 +4,15 @@ from bs4 import BeautifulSoup
 import glob, os
 import re
 import numpy as np
-import string
-import nltk         #Natural Language Toolkit
-from nltk.corpus import stopwords # Import the stop word list
+from nltk.corpus import stopwords  # Import the stop word list
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import svm,neighbors
 from lxml.html.clean import Cleaner
 from sklearn import metrics
 import sys
+
+
 class Analyser():
     def __init__(self,):
         self.cleaner = Cleaner() #for cleaning the html files
@@ -94,7 +94,7 @@ class Analyser():
             lower_case = textWithoutPunctuation.lower()        # Convert to lower case
             corpus.append(lower_case)
             labels.append(productPage.split('_')[1].split('.')[0])
-        print(labels)
+        print("labels = ",labels)
         return corpus ,labels
 
 if __name__ == "__main__":
@@ -106,7 +106,7 @@ if __name__ == "__main__":
             'Amazonfromseller_1.html',
             ]
     anlr = Analyser()
-    train_data,y_train = anlr.html_source_processing("../Data/train-data/")
+    train_data,y_train = anlr.html_source_processing("../data/train-data/")
     test_data,y_test = anlr.html_source_processing("../test-data/")
 
     predicted = anlr.classification(train_data, test_data, y_train,'knn')
